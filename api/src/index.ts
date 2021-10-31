@@ -3,10 +3,17 @@
  */
 
 import express from 'express';
+import users from './controllers/users'
 
 const app = express();
 const PORT = 8000;
-app.get('/', (req,res) => res.send('Express + TypeScript Server!'));
+
+const baseRoutes = express.Router();
+baseRoutes.get('/', (req,res) => res.send('Welcome to Grocery Cookbook'));
+
+app.use('/', baseRoutes);
+app.use('users/', users);
+
 app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+  console.log(`Express API is running at http://localhost:${PORT}`);
 });
