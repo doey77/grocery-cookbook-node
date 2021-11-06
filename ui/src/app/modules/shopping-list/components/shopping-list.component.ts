@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ListEntry } from '../models/ListEntry';
-import { List } from '../models/List';
+import { ShoppingListService } from '../../../services/shopping-list.service';
+import { IShoppingList, IShoppingListItem } from 'src/app/interfaces/ShoppingList';
 
 @Component({
   selector: 'app-shopping-list',
@@ -15,24 +15,30 @@ export class ShoppingListComponent implements OnInit {
     quantity: new FormControl(1, [Validators.required]),
   });
 
-  public lists: List[] = []
-  public activeList!: List;
+  public lists: IShoppingList[] = []
+  public activeList!: IShoppingList;
 
-  constructor() { }
+  constructor(private shoppingListService: ShoppingListService) { }
 
   ngOnInit() {
-    // TODO get lists from storage
-    this.lists.push({name: 'My List', entries:[]});
-    this.lists.push({name: 'Another List', entries:[]});
+    this.getLists();
+  }
+
+  public getLists() {
+    this.lists = this.shoppingListService.getLists();
+    if (this.lists.length === 0) {
+      // Create a new default list
+      this.lists = [{name: 'My List', entries: []}]
+    };
     this.activeList = this.lists[0];
   }
 
-  public onSelectListChange(value: List) {
+  public onSelectListChange(value: IShoppingList) {
     this.activeList = value;
   }
 
   public onSubmitListEntry() {
-    const entry: ListEntry = {
+    const entry: IShoppingListItem = {
       item: this.formListEntry.controls['item'].value,
       quantity: this.formListEntry.controls['quantity'].value
     };
