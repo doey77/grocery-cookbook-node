@@ -1,4 +1,13 @@
-<form [formGroup]="listEntry" (ngSubmit)="onSubmitListEntry()">
+<mat-form-field>
+    <mat-label>Shopping List</mat-label>
+    <mat-select [ngModel]="activeList" (ngModelChange)="onSelectListChange($event)">
+        <mat-option *ngFor="let list of lists" [value]="list">
+            {{list.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<form [formGroup]="formListEntry" (ngSubmit)="onSubmitListEntry()">
     <mat-form-field>
         <mat-label>Item</mat-label>
         <input matInput type="text" formControlName="item">
@@ -10,6 +19,6 @@
     <button type="submit" mat-raised-button>Submit</button>
 </form>
 
-<div *ngFor='let entry of listEntries'>
+<div *ngFor='let entry of activeList.entries'>
     <p>{{entry.item}} | {{entry.quantity}}</p>
 </div>
