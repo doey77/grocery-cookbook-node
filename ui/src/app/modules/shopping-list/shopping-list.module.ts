@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShoppingListComponent } from './shopping-list.component';
-import { MaterialModule } from 'src/app/material.module';
+import { SharedModule } from 'src/app/shared.module';
 import { ShoppingListRoutingModule } from './shopping-list-routing.module';
-
 
 @NgModule({
   declarations: [
@@ -11,7 +10,7 @@ import { ShoppingListRoutingModule } from './shopping-list-routing.module';
   ],
   imports: [
     CommonModule,
-    MaterialModule,
+    SharedModule,
     ShoppingListRoutingModule,
   ]
 })
