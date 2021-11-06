@@ -5,6 +5,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', component: HomepageComponent},
+  {path: 'shoppinglist', loadChildren: () => import('./modules/shopping-list/shopping-list.module').then(m=>m.ShoppingListModule)},
   {path: '**', component: NotfoundComponent},
 ];
 
