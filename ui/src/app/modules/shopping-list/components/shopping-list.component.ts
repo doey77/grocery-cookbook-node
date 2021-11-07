@@ -24,11 +24,15 @@ export class ShoppingListComponent implements OnInit {
     this.getLists();
   }
 
-  public getLists() {
-    this.lists = this.shoppingListService.getLists();
+  public async saveLists() {
+    await this.shoppingListService.saveLists(this.lists);
+  }
+
+  public async getLists() {
+    this.lists = await this.shoppingListService.getLists();
     if (this.lists.length === 0) {
       // Create a new default list
-      this.lists = [{name: 'My List', entries: []}]
+      this.lists = [{id:1, name: 'My List', entries: []}]
     };
     this.activeList = this.lists[0];
   }

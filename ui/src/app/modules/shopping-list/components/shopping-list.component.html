@@ -1,3 +1,5 @@
+<button mat-raised-button (click)="saveLists()">Save</button>
+
 <mat-form-field>
     <mat-label>Shopping List</mat-label>
     <mat-select [ngModel]="activeList" (ngModelChange)="onSelectListChange($event)">
@@ -19,6 +21,6 @@
     <button type="submit" mat-raised-button>Submit</button>
 </form>
 
-<div *ngFor='let entry of activeList.entries'>
-    <p>{{entry.item}} | {{entry.quantity}}</p>
+<div *ngFor='let entry of activeList?.entries'>
+    <p>{{entry?.item}} | {{entry?.quantity}}</p>
 </div>

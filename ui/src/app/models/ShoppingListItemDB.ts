@@ -1,5 +1,5 @@
 export interface IShoppingListItemDB {
-    id: number,
+    id?: number,
     listId: number,
     item: string,
     quantity: number,

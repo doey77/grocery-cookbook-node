@@ -2,7 +2,7 @@ import { Dexie, Table } from 'dexie';
 import { IShoppingListDB } from './ShoppingListDB';
 import { IShoppingListItemDB } from './ShoppingListItemDB';
 
-export default class DB extends Dexie {
+export class GroceryCookbookDB extends Dexie {
     public shoppingList: Table<IShoppingListDB, number>;
     public shoppingListItem: Table<IShoppingListItemDB, number>;
     
@@ -17,3 +17,5 @@ export default class DB extends Dexie {
         this.shoppingListItem = this.table('shoppingListItem');
     }
 };
+
+export var db = new GroceryCookbookDB();
