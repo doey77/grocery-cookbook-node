@@ -34,16 +34,16 @@ export class ShoppingListService {
     const itemsDb = await db.shoppingListItem.bulkGet(listsDb.map(list=>list.id!))
 
     for (let index = 0; index < listsDb.length; index++) {
-      const element = listsDb[index];
+      const listDb = listsDb[index];
+      const listItems: IShoppingListItem[] = [];
+      itemsDb.map(itemDb => {
+        if (itemDb) listItems.push({item: itemDb!.item, quantity: itemDb!.quantity, id: itemDb!.id})
+      })
+      
       const list: IShoppingList = {
-        name: element.name,
-        entries: itemsDb.map(itemDb => {
-          const item: IShoppingListItem = {
-            item: itemDb!.item,
-            quantity: itemDb!.quantity
-          }
-          return item
-        })
+        name: listDb.name,
+        entries: listItems,
+        id: listDb.id
       };
       lists.push(list);
     }

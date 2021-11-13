@@ -1,0 +1,11 @@
+<form [formGroup]="formNewList" (ngSubmit)="onSubmitNewList()">
+
+<mat-form-field>
+    <mat-label>List Name</mat-label>
+    <input matInput type="text" formControlName="name">
+</mat-form-field>
+<br>
+<button type="button" mat-raised-button (click)="dialogRef.close()">Close</button>
+<button type="submit" mat-raised-button>Submit</button>
+
+</form>

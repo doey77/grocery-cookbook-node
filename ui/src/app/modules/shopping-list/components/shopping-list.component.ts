@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ShoppingListService } from '../../../services/shopping-list.service';
 import { IShoppingList, IShoppingListItem } from 'src/app/interfaces/ShoppingList';
+import { MatDialog } from '@angular/material/dialog';
+import { AddListDialogData, AddShoppingListComponent } from './add-shopping-list/add-shopping-list.component';
 
 @Component({
   selector: 'app-shopping-list',
@@ -17,22 +19,40 @@ export class ShoppingListComponent implements OnInit {
 
   public lists: IShoppingList[] = []
   public activeList!: IShoppingList;
+  public saving = false;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(
+    private shoppingListService: ShoppingListService,
+    private addListDialog: MatDialog) { }
 
   ngOnInit() {
     this.getLists();
   }
 
   public async saveLists() {
+    this.saving = true;
     await this.shoppingListService.saveLists(this.lists);
+    await this.shoppingListService.getLists();
+    this.saving = false;
+  }
+
+  public openAddList() {
+    const dialogRef = this.addListDialog.open(AddShoppingListComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      let data: AddListDialogData;
+      if (result) {
+        data = result;
+        this.lists.push({name: data.name, entries:[]})
+      }
+    });
   }
 
   public async getLists() {
     this.lists = await this.shoppingListService.getLists();
     if (this.lists.length === 0) {
       // Create a new default list
-      this.lists = [{id:1, name: 'My List', entries: []}]
+      this.lists = [{id: 1, name: 'My List', entries: []}]
     };
     this.activeList = this.lists[0];
   }

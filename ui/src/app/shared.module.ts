@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const materialModules = [
   MatToolbarModule,
@@ -16,6 +17,7 @@ const materialModules = [
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
+  MatDialogModule,
 ]
 
 const sharedModules = [
