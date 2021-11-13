@@ -1,1 +1,18 @@
-<p>homepage works!</p>
+<mat-grid-list
+    [cols]="gridCols"
+    class="grid"
+    rowHeight="47vh"
+    (window:resize)="onResize($event)"
+>
+    <mat-grid-tile
+        *ngFor="let tile of tiles"
+        [routerLink]="tile.routerLink"
+    >
+        <div class="tile-container">
+            <img src="{{tile.imgLink}}" alt="{{tile.displayText}}">
+            <div class="tile-text">{{tile.displayText}}</div>
+        </div>
+
+    </mat-grid-tile>
+
+</mat-grid-list>
