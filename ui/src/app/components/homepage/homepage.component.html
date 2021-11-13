@@ -7,12 +7,12 @@
     <mat-grid-tile
         *ngFor="let tile of tiles"
         [routerLink]="tile.routerLink"
+        [style.background-image]="'url(' + tile.imgLink + ')'"
+        class="grid-tile"
     >
-        <div class="tile-container">
-            <img src="{{tile.imgLink}}" alt="{{tile.displayText}}">
-            <div class="tile-text">{{tile.displayText}}</div>
+        <div class="grid-tile-text">
+            <h1>{{tile.displayText}}</h1>
         </div>
-
     </mat-grid-tile>
 
 </mat-grid-list>
