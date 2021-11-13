@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Route, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -12,22 +11,22 @@ export class HomepageComponent {
     {
       displayText: 'Shopping List',
       routerLink: '/shoppinglist',
-      imgLink: 'https://images.pexels.com/photos/162986/vodka-ruska-alcohol-drunkenness-162986.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+      imgLink: '/assets/shopping-list.jpg'
     },
     {
       displayText: 'N/A',
       routerLink: '/',
-      imgLink: 'https://images.pexels.com/photos/162986/vodka-ruska-alcohol-drunkenness-162986.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+      imgLink: ''
     },
     {
       displayText: 'N/A',
       routerLink: '/',
-      imgLink: 'https://images.pexels.com/photos/162986/vodka-ruska-alcohol-drunkenness-162986.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+      imgLink: ''
     },
     {
       displayText: 'N/A',
       routerLink: '/',
-      imgLink: 'https://images.pexels.com/photos/162986/vodka-ruska-alcohol-drunkenness-162986.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+      imgLink: ''
     },
   ]
 
