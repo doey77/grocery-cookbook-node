@@ -14,19 +14,9 @@ export class HomepageComponent {
       imgLink: '/assets/shopping-list.jpg'
     },
     {
-      displayText: 'N/A',
-      routerLink: '/',
-      imgLink: ''
-    },
-    {
-      displayText: 'N/A',
-      routerLink: '/',
-      imgLink: ''
-    },
-    {
-      displayText: 'N/A',
-      routerLink: '/',
-      imgLink: ''
+      displayText: 'Recipes',
+      routerLink: '/recipes',
+      imgLink: '/assets/recipes.jpg'
     },
   ]
 
