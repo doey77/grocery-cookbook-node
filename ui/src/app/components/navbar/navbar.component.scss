@@ -41,3 +41,16 @@ $toolbarHeight: 55px;
 .router-outlet {
 	margin-bottom: 50px;
 }
+
+.mat-list {
+	width: 130px;
+}
+
+.mat-list-short {
+	width: 50px;
+}
+
+.mat-list-short .mat-list-item {
+	margin-left: -5px;
+	width: 55px;
+}

@@ -2,22 +2,36 @@
   <!-- Be sure to keep 'fixedTopGap' in-line with .scss $toolbarHeight -->
   <mat-sidenav #sidenav fixedTopGap="55" fixedInViewport="true" mode="side" [opened]="false">
     <div *ngIf="!shortSidebar">
-      <mat-nav-list>
-        <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">{{link.displayText}}</a>
+      <mat-nav-list class="mat-list">
+        <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">
+          <mat-icon matListIcon *ngIf="link.matIcon">
+            {{link.matIcon}}
+          </mat-icon>
+          {{link.displayText}}
+        </a>
       </mat-nav-list>
       <div [ngClass]="bottomClass">
-        <mat-action-list>
-          <button mat-list-item (click)="toggleDrawerWidth()">&lt;&lt; Collapse</button>
+        <mat-action-list class="mat-list">
+          <button mat-list-item (click)="toggleDrawerWidth()">
+            <mat-icon matListIcon>keyboard_double_arrow_left</mat-icon> Collapse
+          </button>
         </mat-action-list>
       </div>
     </div>
     <div *ngIf="shortSidebar">
-      <mat-nav-list >
-        <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">hi</a>
+      <mat-nav-list class="mat-list-short">
+        <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">
+          <mat-icon matListIcon aria-label="link.displayText" *ngIf="link.matIcon">
+            {{link.matIcon}}
+          </mat-icon>
+          <span *ngIf="!link.matIcon">{{link.displayText | slice:0:3}}</span>
+        </a>
       </mat-nav-list>
       <div [ngClass]="bottomClass">
-        <mat-action-list>
-          <button mat-list-item (click)="toggleDrawerWidth()">&gt;&gt;</button>
+        <mat-action-list class="mat-list-short">
+          <button mat-list-item (click)="toggleDrawerWidth()">
+            <mat-icon matListIcon aria-label="Expand">keyboard_double_arrow_right</mat-icon>
+          </button>
         </mat-action-list>
       </div>
     </div>
