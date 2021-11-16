@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ILink, links } from 'src/app/links';
 
 @Component({
@@ -6,7 +6,7 @@ import { ILink, links } from 'src/app/links';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent {
+export class HomepageComponent implements OnInit {
 
   public tiles: ILink[] = [];
 
@@ -18,16 +18,16 @@ export class HomepageComponent {
     });
   }
 
+  ngOnInit() {
+    this.setGridCols(window);
+  }
+
   onResize(event: any) {
     this.setGridCols(event.target);
   }
 
-  /**
-   * Set the number of columns for the drink grid
-   * @param obj - Variable with current inner width
-   */
-   setGridCols(obj:any) {
-    this.gridCols = obj.innerWidth <= 600 ? 1 : 2;
+   setGridCols(window:Window) {
+    this.gridCols = window.innerWidth <= 600 ? 1 : 2;
   }
 
 }
