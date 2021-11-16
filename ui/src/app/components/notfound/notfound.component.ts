@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-notfound',
-  template: `<div class="center"><h1>The requested page could not be found</h1></div>`,
+  template: `<div class="app-container center"><h1>The requested page could not be found</h1></div>`,
   styles: [`
   .center {
     display: flex;
