@@ -1,20 +1,39 @@
-<mat-toolbar>
-    <button (click)="sidenav.toggle()" mat-icon-button aria-label="Menu button">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Grocery Cookbook</span>
-    <span class="spacer"></span>
-</mat-toolbar>
-
-<mat-sidenav-container class="master-container">
-  <mat-sidenav #sidenav mode="side" [opened]="false">
-    <mat-nav-list >
-      <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">{{link.displayText}}</a>
-    </mat-nav-list>
+<mat-sidenav-container class="master-container" autosize (window:resize)="onResize($event)">
+  <!-- Be sure to keep 'fixedTopGap' in-line with .scss $toolbarHeight -->
+  <mat-sidenav #sidenav fixedTopGap="55" fixedInViewport="true" mode="side" [opened]="false">
+    <div *ngIf="!shortSidebar">
+      <mat-nav-list>
+        <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">{{link.displayText}}</a>
+      </mat-nav-list>
+      <div [ngClass]="bottomClass">
+        <mat-action-list>
+          <button mat-list-item (click)="toggleDrawerWidth()">&lt;&lt; Collapse</button>
+        </mat-action-list>
+      </div>
+    </div>
+    <div *ngIf="shortSidebar">
+      <mat-nav-list >
+        <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">hi</a>
+      </mat-nav-list>
+      <div [ngClass]="bottomClass">
+        <mat-action-list>
+          <button mat-list-item (click)="toggleDrawerWidth()">&gt;&gt;</button>
+        </mat-action-list>
+      </div>
+    </div>
   </mat-sidenav>
   
   <mat-sidenav-content class="content-container">
-    <router-outlet></router-outlet>
+    <mat-toolbar class="toolbar app-toolbar">
+      <button (click)="sidenav.toggle()" mat-icon-button aria-label="Menu button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Grocery Cookbook</span>
+      <span class="spacer"></span>
+    </mat-toolbar>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
     <footer>
       <p>Grocery Cookbook</p>
     </footer>

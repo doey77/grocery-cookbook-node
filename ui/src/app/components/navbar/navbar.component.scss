@@ -9,9 +9,35 @@ footer {
 	width: 100%; 
 }
 
+// Be sure to adjust 'fixedTopGap'
+$toolbarHeight: 55px;
+
+.toolbar {
+	height: $toolbarHeight;
+	z-index: 9999;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+}
+
 .master-container .content-container{
-	min-height: 100vh;
+	min-height: calc(100vh - #{$toolbarHeight});
+	margin-top: $toolbarHeight;
 	overflow: hidden;
 	display: block;
 	position: relative;
+}
+
+.navBtnsBottomStick {
+	position:absolute;
+	bottom:0;
+}
+
+.navBtnsBottomRelative {
+	position:relative;
+}
+
+.router-outlet {
+	margin-bottom: 50px;
 }
