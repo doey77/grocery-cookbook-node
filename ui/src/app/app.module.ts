@@ -13,8 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
-  template: `<app-navbar></app-navbar>
-  <router-outlet></router-outlet>`
+  template: `<app-navbar></app-navbar>`
 }) class AppComponent { }
 
 @NgModule({
@@ -22,7 +21,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AppComponent,
     HomepageComponent,
     NotfoundComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

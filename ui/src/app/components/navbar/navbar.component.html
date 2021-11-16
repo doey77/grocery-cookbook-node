@@ -1,10 +1,22 @@
 <mat-toolbar>
-    <button (click)="onClickMenu()" mat-icon-button aria-label="Menu button">
+    <button (click)="sidenav.toggle()" mat-icon-button aria-label="Menu button">
       <mat-icon>menu</mat-icon>
     </button>
     <span>Grocery Cookbook</span>
     <span class="spacer"></span>
-    <button [routerLink]="''" mat-icon-button aria-label="Home">
-      <mat-icon>home</mat-icon>
-    </button>
 </mat-toolbar>
+
+<mat-sidenav-container class="master-container">
+  <mat-sidenav #sidenav mode="side" [opened]="false">
+    <mat-nav-list >
+      <a *ngFor="let link of links" mat-list-item [routerLink]="link.routerLink">{{link.displayText}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  
+  <mat-sidenav-content class="content-container">
+    <router-outlet></router-outlet>
+    <footer>
+      <p>Grocery Cookbook</p>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
