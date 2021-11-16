@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ILink, links } from 'src/app/links';
 
 @Component({
   selector: 'app-homepage',
@@ -7,20 +8,15 @@ import { Component } from '@angular/core';
 })
 export class HomepageComponent {
 
-  public tiles: HomepageGridTile[] = [
-    {
-      displayText: 'Shopping List',
-      routerLink: '/shoppinglist',
-      imgLink: '/assets/shopping-list.jpg'
-    },
-    {
-      displayText: 'Recipes',
-      routerLink: '/recipes',
-      imgLink: '/assets/recipes.jpg'
-    },
-  ]
+  public tiles: ILink[] = [];
 
   public gridCols = 2;
+
+  constructor() {
+    links.forEach(link => {
+      if (link.homepageImgLink) this.tiles.push(link);
+    });
+  }
 
   onResize(event: any) {
     this.setGridCols(event.target);
@@ -34,10 +30,4 @@ export class HomepageComponent {
     this.gridCols = obj.innerWidth <= 600 ? 1 : 2;
   }
 
-}
-
-interface HomepageGridTile {
-  displayText: string,
-  imgLink: string,
-  routerLink: string,
 }
