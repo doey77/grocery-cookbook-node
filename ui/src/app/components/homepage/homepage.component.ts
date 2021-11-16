@@ -26,7 +26,7 @@ export class HomepageComponent implements OnInit {
     this.setGridCols(event.target);
   }
 
-   setGridCols(window:Window) {
+  setGridCols(window:Window) {
     this.gridCols = window.innerWidth <= 600 ? 1 : 2;
   }
 
