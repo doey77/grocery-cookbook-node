@@ -26,35 +26,49 @@ export class ShoppingListComponent implements OnInit {
     private addListDialog: MatDialog) { }
 
   ngOnInit() {
-    this.getLists();
+    this.initGetLists();
   }
 
-  public async saveLists() {
-    this.saving = true;
-    await this.shoppingListService.saveLists(this.lists);
-    await this.shoppingListService.getLists();
-    this.saving = false;
-  }
-
-  public openAddList() {
+  public async openAddList() {
     const dialogRef = this.addListDialog.open(AddShoppingListComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async result => {
       let data: AddListDialogData;
       if (result) {
         data = result;
-        this.lists.push({name: data.name, entries:[]})
+        await this.addList(data.name);
       }
     });
   }
 
-  public async getLists() {
-    this.lists = await this.shoppingListService.getLists();
+  private async addList(name: string) {
+    const listId = await this.shoppingListService.addList(name);
+    await this.getLists(listId);
+  }
+
+  public async initGetLists() {
+    await this.getLists();
     if (this.lists.length === 0) {
       // Create a new default list
-      this.lists = [{id: 1, name: 'My List', entries: []}]
+      await this.shoppingListService.addList('My List');
+      await this.getLists();
     };
-    this.activeList = this.lists[0];
+  }
+
+  public async getLists(activeListId?: number) {
+    this.lists = await this.shoppingListService.getLists();
+    if (activeListId) {
+      for (let index = 0; index < this.lists.length; index++) {
+        const list = this.lists[index];
+        if (list.id === activeListId) {
+          this.activeList = list;
+        }
+      }
+    } else {
+      if (this.lists.length > 0) {
+        this.activeList = this.lists[0];
+      }
+    }
   }
 
   public onSelectListChange(value: IShoppingList) {
@@ -66,6 +80,20 @@ export class ShoppingListComponent implements OnInit {
       item: this.formListEntry.controls['item'].value,
       quantity: this.formListEntry.controls['quantity'].value
     };
-    this.activeList.entries.push(entry);
+    let itemExists = false;
+    for (let index = 0; index < this.activeList.entries.length; index++) {
+      const element = this.activeList.entries[index];
+      if (element.item === entry.item) {
+        itemExists = true;
+        break;
+      }      
+    }
+    if (itemExists) {
+      const msg = `${entry.item} is already in the list`;
+      alert(msg) // TODO use toast
+    } else {
+      this.shoppingListService.addListItem(entry, this.activeList.id!);
+      this.getLists(this.activeList.id);  
+    }
   }
 }

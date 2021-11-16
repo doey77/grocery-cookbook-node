@@ -1,6 +1,4 @@
 <div class="app-container">
-<button mat-raised-button (click)="saveLists()" [disabled]="saving">Save</button>
-<br> <br>
 <mat-form-field>
     <mat-label>Shopping List</mat-label>
     <mat-select [ngModel]="activeList" (ngModelChange)="onSelectListChange($event)">

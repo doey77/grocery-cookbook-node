@@ -4,49 +4,76 @@ import { db } from '../models/db'
 import { IShoppingList, IShoppingListItem } from '../interfaces/ShoppingList';
 import { IShoppingListDB } from '../models/ShoppingListDB';
 import { IShoppingListItemDB } from '../models/ShoppingListItemDB';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingListService {
 
+  private get apiUrl() {return environment.apiUrl}
+
   constructor(private http: HttpClient) { }
 
-  public async saveLists(lists: IShoppingList[]): Promise<void> {
-    for (let listI = 0; listI < lists.length; listI++) {
-      const list = lists[listI];
-      const listDb: IShoppingListDB = {id: list.id, name: list.name};
-      await db.shoppingList.put(listDb);
-      for (let ItemI = 0; ItemI < list.entries.length; ItemI++) {
-        const item = list.entries[ItemI];
-        const itemDb: IShoppingListItemDB = {
-          id:item.id, listId: listI,
-          item: item.item, quantity: item.quantity
-        };
-        await db.shoppingListItem.put(itemDb);
-      }
-    }
+  /**
+   * Syncs the IndexedDB's lists to the server
+   */
+  public async sync() {
+    const listsDb = await db.shoppingList.toArray();
+    const itemsDb = await db.shoppingListItem.toArray();
+
+    const data = {
+      lists: listsDb,
+      items: itemsDb,
+    };
+
+    // TODO refine when actually implemented
+    return this.http.post(
+      `${this.apiUrl}shoppinglists/sync`,
+      data,
+    )
+  }
+
+  public async addListItem(item: IShoppingListItem, listId: number) {
+    const itemDb: IShoppingListItemDB = {
+      listId: listId,
+      item: item.item,
+      quantity: item.quantity
+    };
+    return await db.shoppingListItem.add(itemDb);
+  }
+
+  public async addList(listName: string) {
+    const listDb: IShoppingListDB = {
+      name: listName
+    };
+    return await db.shoppingList.add(listDb);
   }
 
   public async getLists(): Promise<IShoppingList[]> {
-    const lists: IShoppingList[] = [];
     const listsDb = await db.shoppingList.toArray();
-    const itemsDb = await db.shoppingListItem.bulkGet(listsDb.map(list=>list.id!))
+    const itemsDb = await db.shoppingListItem.toArray();
 
-    for (let index = 0; index < listsDb.length; index++) {
-      const listDb = listsDb[index];
-      const listItems: IShoppingListItem[] = [];
-      itemsDb.map(itemDb => {
-        if (itemDb) listItems.push({item: itemDb!.item, quantity: itemDb!.quantity, id: itemDb!.id})
-      })
-      
-      const list: IShoppingList = {
-        name: listDb.name,
-        entries: listItems,
-        id: listDb.id
-      };
-      lists.push(list);
-    }
+    const lists: IShoppingList[] = listsDb.map((listDb) => {return {
+      id: listDb.id,
+      name: listDb.name,
+      entries: []
+    }});
+
+    itemsDb.forEach((itemDb) => {
+      const item: IShoppingListItem = {
+        id: itemDb.id,
+        item: itemDb.item,
+        quantity: itemDb.quantity
+      }
+
+      for (let index = 0; index < lists.length; index++) {
+        const list = lists[index];
+        if (itemDb.listId === list.id) {
+          list.entries.push(item);
+        }
+      }
+    })
 
     return lists;
   }
