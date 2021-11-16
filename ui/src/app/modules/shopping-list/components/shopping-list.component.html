@@ -21,6 +21,7 @@
     </mat-form-field>
     <button type="submit" mat-raised-button>Submit</button>
 </form>
-
-<app-display-shopping-list [list]="activeList"></app-display-shopping-list>
+    <div *ngIf="activeList?.entries">
+        <app-display-shopping-list [items]="activeList.entries"></app-display-shopping-list>
+    </div>
 </div>

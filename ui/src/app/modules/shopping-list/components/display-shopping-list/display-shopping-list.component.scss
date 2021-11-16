@@ -1,0 +1,21 @@
+$max-width: 300px;
+$quantity-width: 15px;
+$edit-width: 20px;
+$item-width: calc(#{$max-width} - (#{$quantity-width} + #{$edit-width} + 50px));
+
+table {
+    width: 100%;
+    max-width: $max-width;
+}
+
+.mat-column-item {
+    width: $item-width
+}
+
+.mat-column-quantity {
+    width: $quantity-width;
+}
+
+.mat-column-edit {
+    width: $edit-width;
+}
