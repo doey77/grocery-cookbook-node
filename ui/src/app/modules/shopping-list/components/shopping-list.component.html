@@ -1,4 +1,5 @@
 <div class="app-container">
+<button mat-raised-button (click)="sync()">Sync</button> <br><br>
 <mat-form-field>
     <mat-label>Shopping List</mat-label>
     <mat-select [ngModel]="activeList" (ngModelChange)="onSelectListChange($event)">

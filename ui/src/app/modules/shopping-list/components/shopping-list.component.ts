@@ -29,6 +29,15 @@ export class ShoppingListComponent implements OnInit {
     this.initGetLists();
   }
 
+  public async sync() {
+    const rsp = await this.shoppingListService.sync();
+    rsp.subscribe({
+      next: (value) => {
+        console.log(value);
+      }
+    })
+  }
+
   public async openAddList() {
     const dialogRef = this.addListDialog.open(AddShoppingListComponent);
 

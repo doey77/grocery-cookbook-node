@@ -5,6 +5,7 @@ import { IShoppingList, IShoppingListItem } from '../interfaces/ShoppingList';
 import { IShoppingListDB } from '../models/ShoppingListDB';
 import { IShoppingListItemDB } from '../models/ShoppingListItemDB';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,10 @@ export class ShoppingListService {
     };
 
     // TODO refine when actually implemented
-    return this.http.post(
-      `${this.apiUrl}shoppinglists/sync`,
+    return this.http.post<null>(
+      `${this.apiUrl}shoppinglist/sync`,
       data,
+      
     )
   }
 
