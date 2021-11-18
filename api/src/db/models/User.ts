@@ -1,10 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, getManager} from "typeorm";
 
 @Entity()
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
     @Column()
     firstName: string;
@@ -15,4 +15,7 @@ export class User {
     @Column()
     age: number;
 
+    constructor(firstName:string, lastName:string, age:number) {
+        this.firstName=firstName; this.lastName=lastName; this.age=age;
+    }
 }
