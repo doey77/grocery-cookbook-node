@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Path, Post, Query, Route, SuccessResponse } from "tsoa";
+import { Body, Controller, Get, Path, Post, Query, Route, SuccessResponse, Tags } from "tsoa";
 import { userService, userCreateArgs } from "../services/user";
 
-@Route("users")
+@Tags("Users")
+@Route("user")
 export class UsersController extends Controller {
 
     @Get("{userId}")

@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, Route } from 'tsoa';
+import { Body, Controller, Get, Post, Route, Tags } from 'tsoa';
 import { shoppingListService, ShoppingListSyncArgs } from '../services/shoppinglist';
 
+@Tags("Shopping List")
 @Route("shoppinglist")
 export class ShoppingListController extends Controller {
-    
+
     @Get()
     public async get() {
         return shoppingListService.get();
