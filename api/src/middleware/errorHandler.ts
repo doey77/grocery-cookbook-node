@@ -10,13 +10,13 @@ const errorHandler = (err: unknown, req: Request,
     if (err instanceof ValidateError) {
         console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
         return res.status(422).json({
-        message: "Validation Failed",
+        msg: "Validation Failed",
         details: err?.fields,
         });
     }
     if (err instanceof Error) {
         return res.status(500).json({
-        message: "Internal Server Error",
+        msg: "Internal Server Error",
         });
     }
 
