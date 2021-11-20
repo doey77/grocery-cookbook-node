@@ -1,24 +1,16 @@
-import { Router, Request, Response } from 'express';
-import { checkSchema, validationResult } from 'express-validator';
-import { IShoppingListDB, IShoppingListItemDB } from '../interfaces/ShoppingList';
+import { Body, Controller, Get, Post, Route } from 'tsoa';
+import { shoppingListService, ShoppingListSyncArgs } from '../services/shoppinglist';
 
-const shoppinglist = Router();
-
-shoppinglist.get('', (req, res) => {
-    res.send('shoppinglist resource');
-});
-
-shoppinglist.post('/sync', async (req:Request, res:Response) => {
-    const lists: IShoppingListDB[] = req.body.lists;
-    const items: IShoppingListItemDB[] = req.body.items;
-
-    // TODO save to DB
-
-    res.sendStatus(204);
-});
-
-shoppinglist.patch('', (req:Request, res:Response) => {
+@Route("shoppinglist")
+export class ShoppingListController extends Controller {
     
-});
+    @Get()
+    public async get() {
+        return shoppingListService.get();
+    }
 
-export default shoppinglist;
+    @Post("sync")
+    public async sync(@Body() body: ShoppingListSyncArgs) {
+        return shoppingListService.sync(body);
+    }
+}
