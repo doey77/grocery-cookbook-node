@@ -8,14 +8,14 @@ import swaggerUi, { SwaggerUiOptions } from 'swagger-ui-express';
 import { createConnection } from 'typeorm';
 
 import { RegisterRoutes } from './routes'; // Auto-generate w/ tsoa routes
-import { environment } from './_environments/environment';
+import env from './env';
 import errorHandler from './middleware/errorHandler';
 import notFoundHandler from './middleware/notfoundHandler';
 
 const app = express();
 const PORT = 8000;
 const startup = () => app.listen(PORT, () => {
-  if (environment.name === 'dev') console.log(`Express API is running at http://localhost:${PORT}`);
+  if (env.name === 'development') console.log(`Express API is running at http://localhost:${PORT}`);
 })
 
 const swaggerOpts: SwaggerUiOptions = {
@@ -25,7 +25,7 @@ const swaggerOpts: SwaggerUiOptions = {
 }
 
 app.use(cors({
-  origin: environment.cors
+  origin: env.cors
 }))
 app.use(express.json());
 app.use(express.static("public"));

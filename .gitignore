@@ -1,6 +1,7 @@
 # Express
 api/public/swagger.json
 api/src/routes.ts
+api/.env
 
 bin/
 dist/
