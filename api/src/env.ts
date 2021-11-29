@@ -11,4 +11,6 @@ const env = {
     cors: process.env.CORS_ORIGINS!.split(";"),
 };
 
+export const isDev = env.name === 'development';
+
 export default env;
