@@ -1,21 +1,18 @@
-import {Entity, PrimaryGeneratedColumn, Column, getManager} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class User {
+export class UserDB {
 
     @PrimaryGeneratedColumn()
     id?: number;
 
     @Column()
-    firstName: string;
+    email: string;
 
     @Column()
-    lastName: string;
+    password: string;
 
-    @Column()
-    age: number;
-
-    constructor(firstName:string, lastName:string, age:number) {
-        this.firstName=firstName; this.lastName=lastName; this.age=age;
+    constructor(email:string, password:string) {
+        this.email=email; this.password=password;
     }
 }

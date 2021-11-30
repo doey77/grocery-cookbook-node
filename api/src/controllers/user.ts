@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Path, Post, Query, Route, SuccessResponse, Tags } from "tsoa";
+import { Body, Controller, Get, Post, Query, Route, SuccessResponse, Tags } from "tsoa";
 import { userService, userCreateArgs } from "../services/user";
 
 @Tags("Users")
@@ -7,9 +7,19 @@ export class UsersController extends Controller {
 
     @Get("{userId}")
     public async getUser(
-        @Path() userId: number, @Query() name?: string
+        @Query() userId: number
     ) {
-        return userService.get({id:userId, name:name});
+        return userService.get({id:userId});
+    }
+
+    @Get()
+    public async getManyUsers(
+        @Query() limit?: number, @Query() skip?: number
+    ) {
+        const args: any = {};
+        if (limit) args.limit = limit;
+        if (skip) args.take = skip;
+        return userService.getMany(args);
     }
 
     @SuccessResponse("201", "Created")

@@ -1,28 +1,23 @@
-import { User } from "../interfaces/User";
+import { FindManyOptions, getManager } from "typeorm";
+import { UserDB } from "../db/models/User";
 
-export type UserGetArgs = {
-  id: number,
-  name?: string
+export type userGetArgs = {
+  id: number
 };
 
-const get = (args: UserGetArgs): User => {
-  return {
-    id: args.id,
-    email: "janedoe@example.com",
-    name: args.name ?? "Jane Doe"
-  }
-}
+const get = (args: userGetArgs) => getManager().getRepository(UserDB).findOne(args.id);
 
-export type userCreateArgs = Pick<User, "email" | "name">;
+const getMany = (args?: FindManyOptions) => getManager().getRepository(UserDB).find(args);
 
-const create = (args: userCreateArgs): User => {
-  return {
-    id: Math.floor(Math.random() * 10000),
-    ...args
-  }
-}
+export type userCreateArgs = Pick<UserDB, "email" | "password" >;
+
+const create = (args: userCreateArgs) => getManager().save(
+    new UserDB(args.email, args.password)
+  ).then(user => user);
+
 
 export const userService = {
   get: get,
+  getMany: getMany,
   create: create
 }
