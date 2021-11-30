@@ -10,7 +10,7 @@ import { createConnection } from 'typeorm';
 import { RegisterRoutes } from './routes'; // Auto-generate w/ tsoa routes
 import env, { isDev } from './env';
 import errorHandler from './middleware/errorHandler';
-import notFoundHandler from './middleware/notfoundHandler';
+import notFoundHandler from './middleware/notFoundHandler';
 
 const app = express();
 const PORT = 8000;
