@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from 'express';
 import { ValidateError } from 'tsoa';
+import { isDev } from '../env';
 
 /**
  * Must be added after RegisterRoutes
@@ -15,9 +16,11 @@ const errorHandler = (err: unknown, req: Request,
         });
     }
     if (err instanceof Error) {
-        return res.status(500).json({
-        msg: "Internal Server Error",
-        });
+        if (isDev) {
+            console.error(err);
+            return res.status(500).json({msg: "Internal Server Error", err: err.message})
+        }
+        return res.status(500).json({msg: "Internal Server Error",});
     }
 
     next(); 
