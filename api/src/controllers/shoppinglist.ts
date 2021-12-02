@@ -14,4 +14,9 @@ export class ShoppingListController extends Controller {
     public async sync(@Body() body: ShoppingListSyncArgs) {
         return shoppingListService.sync(body);
     }
+
+    @Post("init")
+    public async init() {
+        return shoppingListService.init();
+    }
 }
