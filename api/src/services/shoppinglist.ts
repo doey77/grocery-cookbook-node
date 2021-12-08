@@ -4,16 +4,18 @@ import { IShoppingListDB, IShoppingListItemDB } from '../interfaces/ShoppingList
 
 const get = () => {
     const listRepo = getManager().getRepository(ShoppingListDB);
-    return listRepo.find();
+    return listRepo.find({relations: ['items']});
 }
 
 export type ShoppingListSyncArgs = {
-    lists: IShoppingListDB[],
-    items: IShoppingListItemDB[]
+    lists: Pick<IShoppingListDB, "id" | "name">,
+    items: Pick<IShoppingListItemDB, "id" | "item" | "listId" | "quantity">
 }
 
-const sync = (args: ShoppingListSyncArgs) => {
-    // TODO implement sync logic
+const sync = async (args: ShoppingListSyncArgs) => {
+    const listRepo = getManager().getRepository(ShoppingListDB);
+    const listItemRepo = getManager().getRepository(ShoppingListItemDB);
+
     return args;
 }
 
