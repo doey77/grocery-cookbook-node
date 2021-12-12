@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query, Route, SuccessResponse, Tags } from "tsoa";
-import { userService, userCreateArgs } from "../services/user";
+import { userService, userCreateArgs, userLoginArgs } from "../services/user";
 
 @Tags("Users")
 @Route("user")
@@ -29,6 +29,13 @@ export class UsersController extends Controller {
     ) {
         this.setStatus(201);
         return userService.create(requestBody);
+    }
+
+    @Post('login')
+    public async login(
+        @Body() args: userLoginArgs
+    ) {
+        return await userService.login(args);
     }
 
 }
