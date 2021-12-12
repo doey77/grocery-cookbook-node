@@ -9,6 +9,7 @@ config();
 const env = {
     name: process.env.NODE_ENV!,
     cors: process.env.CORS_ORIGINS!.split(";"),
+    authTokenSecret: process.env.AUTH_TOKEN_SECRET! 
 };
 
 export const isDev = env.name === 'development';
