@@ -38,7 +38,7 @@ export class ShoppingListDB implements IShoppingListDB {
     @Column()
     name: string;
 
-    @OneToMany('ShoppingListItemDB', 'shoppinglist')
+    @OneToMany('ShoppingListItemDB', 'shoppingList', {eager:true})
     items?: IShoppingListItemDB[];
 
     constructor(name:string) {

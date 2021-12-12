@@ -4,7 +4,7 @@ import { IShoppingListDB, IShoppingListItemDB } from '../interfaces/ShoppingList
 
 const get = () => {
     const listRepo = getManager().getRepository(ShoppingListDB);
-    return listRepo.find({relations: ['items']});
+    return listRepo.find();
 }
 
 export type ShoppingListSyncArgs = {
